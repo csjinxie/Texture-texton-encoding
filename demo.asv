@@ -1,0 +1,21 @@
+%demo program of texture classification
+%use GenMR8 to generate MR8 features of texture images and save them in MR8Folder.
+%use kmeans, L1 norm minimization or texton_learning to learn textons. We
+%put the learned textons in the subfoldters.
+%
+
+ load 'E:\texture data\CuRET_texture data\23_sparseFinal\Texton';
+ MR8Folder = 'E:\texture data\MR8_CUReT';
+ flag=0;
+ for i=1:92
+   for j=1:61
+     flag=flag+1;
+    matfile = sprintf('%s\\%04d',MR8Folder, flag);
+    load(matfile)
+    Texture_feature=MR8Norm;
+    [Histogram_c, Histogram_r]=TEISF(Texton, Texture_feature, 100, 3, 1.5);
+    AllMRHists_c(:,flag)=Histogram_c';
+    AllMRHists_r(:,flag)=Histogram_r';
+     sprintf('trainclassnums=%d',flag)
+   end
+ end
